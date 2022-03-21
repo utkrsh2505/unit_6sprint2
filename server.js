@@ -9,10 +9,21 @@ const PORT = 8000;
  const connect = ()=>{
      return mongoose.connect(DB_URL);
  }
- app.get("/task",async (req,res)=>{
+ app.get("/tasks",async (req,res)=>{
      let tasks = await Task.find();
      res.json(tasks);
 
+ })
+
+
+ app.get("/tasks/:id",async(req,res)=>{
+    let tasks = await Task.findById(req.params.id)
+    res.json(tasks)
+ })
+
+ app.delete("/tasks/:id",async(req,res)=>{
+     let tasks = await Task.findByIdAndDelete(req.params.id)
+     res.json(tasks)
  })
 
  app.listen(PORT, async (req,res)=>{
